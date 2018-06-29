@@ -6,4 +6,4 @@ A WeChat Mini-Program to count and rank steps.
 
 # 预览
 ![](http://seuzl.qiniudn.com/md/1530282178950.png)
-![](http://seuzl.qiniudn.com/md/1530282187303.png)
+![](http://seuzl.qiniudn.com/md/1530282359408.png)
