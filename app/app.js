@@ -1,11 +1,9 @@
 //app.js
 App({
-  data: {
-    runData: [],
-  },
+
   onLaunch: function () {
     var that = this;
-
+    const util = require('utils/util.js')
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -42,16 +40,15 @@ App({
                 },
                 method: 'GET',
                 success: function (resDecrypt) {
-                  console.info(resDecrypt)
-                  // var runData = JSON.parse(resDecrypt.data.data)
-                  // console.info(runData);
-                  // if (runData.stepInfoList) {
-                  //   runData.stepInfoList = runData.stepInfoList.reverse()
-                  //   for (var i in runData.stepInfoList) {
-                  //     runData.stepInfoList[i].date = util.formatTime(new Date(runData.stepInfoList[i].timestamp * 1000))
-                  //   }
-                  //   that.setData({ runData: runData.stepInfoList });
-                  // }  
+                  var runData = resDecrypt.data
+                  console.info(runData);
+                  if (runData.stepInfoList) {
+                    runData.stepInfoList = runData.stepInfoList.reverse()
+                    for (var i in runData.stepInfoList) {
+                      runData.stepInfoList[i].date = util.formatTime(new Date(runData.stepInfoList[i].timestamp * 1000))
+                    }
+                    that.globalData.runData = runData.stepInfoList
+                  }  
                 }
               })
 
@@ -82,6 +79,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    runData: []
   }
 })
