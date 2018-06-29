@@ -1,13 +1,78 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view class="userinfo">
+        <view class="run-step">
+            <view class="wx-run">{{rank.today_step}}</view>
+            <view class="wx-rank"> {{rank.rank}} </view>
+        </view>
+        <view class="circle">
+            <image src="{{rank.avatar}}" class="avatar"></image>
+        </view>
+        <view class="tname">{{rank.nickname}}</view>
+    </view>
+
+     <!--图表  -->
+      <!-- <view class="" wx:if="{{!isDetail && chartList !=null}}">
+         <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
+    </view>   -->
+        <!--柱状图-->
+    <view class="graph">
+        <view class="graph-head">
+            一周步数
+            <!-- <view class="graph-head-today">今日步数：{{stepList.todayStep}}</view> -->
+        </view>
+        <!--柱子盒子-->
+        <view class="graph-content">
+            <!--Y轴线-->
+            <view class="graph-content-line line1"><text></text></view>
+            <view class="graph-content-line line2"><text>1.5W</text></view>
+            <view class="graph-content-line line3"><text>1W</text></view>
+            <!--柱子-->
+            <view wx:for="{{stepList.barHeight}}"  wx:for-index="idx" wx:key="idx"
+                  class="graph-content-bar-wrap  bar-left-{{idx}}"
+                  bindtap="showStepTap" data-idx="{{idx}}">
+                <view class="graph-content-bar" style="height:{{item}}rpx;"
+                ></view>
+            </view>
+            <!--步数-->
+            <view wx:for="{{stepList.step}}"  wx:for-index="idx" wx:key="idx"
+                  class="graph-content-step graph-li bar-left-{{idx}} {{(stepList.showingStepIdx==idx)?'top-2percent':''}}"
+            >{{item}}</view>
+        </view>
+        <!--日期-->
+        <view class="graph-date">
+            <view wx:for="{{stepList.date}}"  wx:for-index="idx" wx:key="idx"
+                  class="graph-li bar-left-{{idx}}"
+            >{{item}}</view>
+        </view>
+    </view>
+
+    <view class="content content-top" wx:if="{{!isDetail}}">
+        <view class="tabs row " style='background:#fff;' wx:if="{{!istm}}">
+            <view class="tab-c {{today ? 'active':''}}" bindtap="today">
+                今日榜单
+                <view class="tip" hidden="{{all}}"></view>
+            </view>
+            <view class="tab-c {{all ? 'active':''}}" bindtap="all">
+                本周榜单
+                <view class="tip" hidden="{{today}}"></view>
+            </view>   
+        </view>
+    </view>
+    <view class="content content-top" wx:if="{{isDetail}}">
+        <view class="tabs row " style='background:#fff;'>
+            <view class="createteam" bindtap="returnList">
+               返回团队榜
+            </view>  
+        </view>
+    </view>    
+    <view class="content">
+        <view class="row" wx:for="{{rankList}}" wx:for-index="id" wx:for-item="item" wx:key="key" bindtap="teamDetail" id="{{item.id}}">
+           <text class="rank">{{id+1}}</text>
+           <image class="img" src="{{item.avatar}}"></image>
+           <text class="nickname">{{item.nickname}}</text>
+           <view class="step">{{item.today_step}}<text class="unit">  步</text></view>
+        </view>
+    </view>
+
 </view>

@@ -9,17 +9,5 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "行走的力量",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "我的步数"
-      },
-      {
-        "pagePath": "pages/logs/logs",
-        "text": "今日排行"
-      }
-    ]
   }
 }
